@@ -1,7 +1,7 @@
 arcbios.c  ARCBIOS and ARCS emulation
 dec_prom.c  DECstation PROM emulation
-dreamcast.c  Dreamcast PROM emulation
 dreamcast_scramble.c  Dreamcast emulation (helper module)
+dreamcast.c  Dreamcast PROM emulation
 luna88kprom.c  LUNA 88K PROM emulation
 mvmeprom.c  MVME PROM emulation
 of.c  OpenFirmware emulation

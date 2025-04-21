@@ -164,30 +164,6 @@ printf " add_cpu_family(alpha_cpu_family_init, ARCH_ALPHA);" >> config.h
 CPU_ARCHS="$CPU_ARCHS cpu_alpha.o cpu_alpha_palcode.o memory_alpha.o"
 CPU_TOOLS="$CPU_TOOLS generate_alpha_misc"
 
-#  ARM
-printf " add_cpu_family(arm_cpu_family_init, ARCH_ARM);" >> config.h
-CPU_ARCHS="$CPU_ARCHS cpu_arm.o cpu_arm_coproc.o memory_arm.o "
-CPU_ARCHS="$CPU_ARCHS tmp_arm_loadstore.o"
-CPU_ARCHS="$CPU_ARCHS tmp_arm_loadstore_p0_u0_w0.o"
-CPU_ARCHS="$CPU_ARCHS tmp_arm_loadstore_p0_u0_w1.o"
-CPU_ARCHS="$CPU_ARCHS tmp_arm_loadstore_p0_u1_w0.o"
-CPU_ARCHS="$CPU_ARCHS tmp_arm_loadstore_p0_u1_w1.o"
-CPU_ARCHS="$CPU_ARCHS tmp_arm_loadstore_p1_u0_w0.o"
-CPU_ARCHS="$CPU_ARCHS tmp_arm_loadstore_p1_u0_w1.o"
-CPU_ARCHS="$CPU_ARCHS tmp_arm_loadstore_p1_u1_w0.o"
-CPU_ARCHS="$CPU_ARCHS tmp_arm_loadstore_p1_u1_w1.o"
-CPU_ARCHS="$CPU_ARCHS tmp_arm_dpi.o tmp_arm_r.o"
-CPU_ARCHS="$CPU_ARCHS tmp_arm_r0.o tmp_arm_r1.o"
-CPU_ARCHS="$CPU_ARCHS tmp_arm_r2.o tmp_arm_r3.o"
-CPU_ARCHS="$CPU_ARCHS tmp_arm_r4.o tmp_arm_r5.o"
-CPU_ARCHS="$CPU_ARCHS tmp_arm_r6.o tmp_arm_r7.o"
-CPU_ARCHS="$CPU_ARCHS tmp_arm_r8.o tmp_arm_r9.o"
-CPU_ARCHS="$CPU_ARCHS tmp_arm_ra.o tmp_arm_rb.o"
-CPU_ARCHS="$CPU_ARCHS tmp_arm_rc.o tmp_arm_rd.o"
-CPU_ARCHS="$CPU_ARCHS tmp_arm_re.o tmp_arm_rf.o tmp_arm_multi.o"
-CPU_TOOLS="$CPU_TOOLS generate_arm_dpi generate_arm_r"
-CPU_TOOLS="$CPU_TOOLS generate_arm_loadstore generate_arm_multi"
-
 #  i960
 printf " add_cpu_family(i960_cpu_family_init, ARCH_I960);" >> config.h
 CPU_ARCHS="$CPU_ARCHS cpu_i960.o memory_i960.o"
@@ -460,21 +436,21 @@ if [ -x _testprog ]; then
 	printf "yes\n"
 	CWARNINGS="-Wall $CWARNINGS"
 
-	if [ z"$DEBUG" = zYES ]; then
-		printf "checking whether -Werror can be used... "
-		rm -f _testprog
-		$CC $CWARNINGS $CFLAGS _testprog.c -o _testprog -Werror 2> _testprog.err
-		if [ -x _testprog ]; then
-			printf "yes\n"
-			CWARNINGS="$CWARNINGS -Werror"
-		else
-			printf "no\n"
-			
-			#printf "CFLAGS = $CFLAGS\n"
-			#cat _testprog.err
-			#printf "\n"
-		fi
-	fi
+#	if [ z"$DEBUG" = zYES ]; then
+#		printf "checking whether -Werror can be used... "
+#		rm -f _testprog
+#		$CC $CWARNINGS $CFLAGS _testprog.c -o _testprog -Werror 2> _testprog.err
+#		if [ -x _testprog ]; then
+#			printf "yes\n"
+#			CWARNINGS="$CWARNINGS -Werror"
+#		else
+#			printf "no\n"
+#			
+#			#printf "CFLAGS = $CFLAGS\n"
+#			#cat _testprog.err
+#			#printf "\n"
+#		fi
+#	fi
 else
 	printf "no\n"
 fi
@@ -499,14 +475,14 @@ rm -f _testprog _testprog.error _testprog.stdout
 
 
 #  -Wextra -Wno-unused-parameter -Wno-cast-align
-printf "checking whether -Wextra -Wno-unused-parameter -Wno-cast-align can be used... "
-$CC $CFLAGS -Wextra -Wno-unused-parameter -Wno-cast-align _testprog.c -o _testprog 1> _testprog.stdout 2>&1
+printf "checking whether -Wextra -Wno-cast-align can be used... "
+$CC $CFLAGS -Wextra -Wno-cast-align _testprog.c -o _testprog 1> _testprog.stdout 2>&1
 cat _testprog.stdout >> _testprog.error
 if grep strict _testprog.error > /dev/null 2>&1; then
 	printf "no\n"
 else
 	if [ -x _testprog ]; then
-		CWARNINGS="$CWARNINGS -Wextra -Wno-unused-parameter -Wno-cast-align"
+		CWARNINGS="$CWARNINGS -Wextra -Wno-cast-align"
 		printf "yes\n"
 	else
 		printf "no\n"

@@ -532,19 +532,6 @@ bool emul_machine_setup(struct machine *m, int n_load, char **load_names,
 			cpu->cd.alpha.r[ALPHA_T12] = cpu->pc;
 			break;
 
-		case ARCH_ARM:
-			if (cpu->pc & 2) {
-				fatal("ARM: misaligned pc: TODO\n");
-				return false;
-			}
-
-			cpu->pc = (uint32_t)cpu->pc;
-
-			// Lowest bit of PC indicates THUMB mode.
-			if (cpu->pc & 1)
-				cpu->cd.arm.cpsr |= ARM_FLAG_T;
-			break;
-
 		case ARCH_I960:
 			if (cpu->pc & 3) {
 				fatal("i960: lowest bits of pc set: TODO\n");

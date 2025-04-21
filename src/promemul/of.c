@@ -1099,9 +1099,6 @@ int of_emul(struct cpu *cpu)
 	 */
 
 	switch (cpu->cpu_family->arch) {
-	case ARCH_ARM:
-		base = cpu->cd.arm.r[0];
-		break;
 	case ARCH_PPC:
 		base = cpu->cd.ppc.gpr[3];
 		break;
@@ -1172,9 +1169,6 @@ int of_emul(struct cpu *cpu)
 
 	/*  Return:  */
 	switch (cpu->cpu_family->arch) {
-	case ARCH_ARM:
-		cpu->cd.arm.r[0] = retval;
-		break;
 	case ARCH_PPC:
 		cpu->cd.ppc.gpr[3] = retval;
 		break;

@@ -245,7 +245,6 @@ struct physpage_ranges {
  *  parts (cd).
  */
 #include "cpu_alpha.h"
-#include "cpu_arm.h"
 #include "cpu_i960.h"
 #include "cpu_m88k.h"
 #include "cpu_mips.h"
@@ -483,7 +482,6 @@ struct cpu {
 	 */
 	union {
 		struct alpha_cpu      alpha;
-		struct arm_cpu        arm;
 		struct i960_cpu       i960;
 		struct m88k_cpu       m88k;
 		struct mips_cpu       mips;
